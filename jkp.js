@@ -4,7 +4,7 @@
 const numOfChoices = 3;
 let playerScore = 0;
 let comScore = 0;
-let playerInput = 'rock'; //hardcode input temporarily for testing
+let playerInput = prompt('enter your choice of rock, paper, or scissors');
 
 const computerPlay = (numOfChoices) => {
   const num = Math.floor(Math.random() * numOfChoices);
@@ -26,9 +26,6 @@ const cleanInput = (playerInput) => {
   }
 };
 
-const computerSelection = computerPlay(numOfChoices);
-const playerSelection = cleanInput(playerInput);
-
 const playRound = (playerSelection, computerSelection) => {
   console.log(playerSelection, computerSelection);
   if (playerSelection == computerSelection) {
@@ -49,6 +46,8 @@ const playRound = (playerSelection, computerSelection) => {
 };
 
 const game = () => {
+  const computerSelection = computerPlay(numOfChoices);
+  const playerSelection = cleanInput(playerInput);
   for (let i = 0; i < 5; i++) {
     cleanInput(playerInput);
     computerPlay(numOfChoices);
