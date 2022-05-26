@@ -1,13 +1,8 @@
-// const rock = 0;
-// const paper = 1;
-// const scissors = 2;
-const numOfChoices = 3;
 let playerScore = 0;
 let comScore = 0;
-let playerInput = prompt('enter your choice of rock, paper, or scissors');
 
-const computerPlay = (numOfChoices) => {
-  const num = Math.floor(Math.random() * numOfChoices);
+const computerPlay = () => {
+  const num = Math.floor(Math.random() * 3);
   if (num === 0) {
     return 'rock';
   } else if (num === 1) {
@@ -22,37 +17,48 @@ const cleanInput = (playerInput) => {
   if (x === 'rock' || x === 'paper' || x === 'scissors') {
     return x;
   } else {
-    return 'bad input';
+    return null;
   }
 };
 
-const playRound = (playerSelection, computerSelection) => {
+const playRound = (playerSelection, computerSelection, i) => {
   console.log(playerSelection, computerSelection);
   if (playerSelection == computerSelection) {
-    playerScore++;
-    comScore++;
-    console.log('tie!');
+    console.log(
+      `Round ${
+        i + 1
+      } is a tie! Current score: Player ${playerScore} - Com ${comScore}`
+    );
   } else if (
     (playerSelection === 'rock' && computerSelection === 'paper') ||
     (playerSelection === 'paper' && computerSelection === 'rock') ||
     (playerSelection === 'scissors' && computerSelection === 'paper')
   ) {
     playerScore++;
-    console.log(`player wins this round and has ${playerScore} points`);
+    console.log(
+      `player wins Round ${
+        i + 1
+      } Current score: Player ${playerScore} - Com ${comScore}`
+    );
   } else {
     comScore++;
-    console.log(`player loses this round and has ${playerScore} points`);
+    console.log(
+      `player loses Round ${
+        i + 1
+      } Current score: Player ${playerScore} - Com ${comScore}`
+    );
   }
 };
 
 const game = () => {
-  const computerSelection = computerPlay(numOfChoices);
-  const playerSelection = cleanInput(playerInput);
   for (let i = 0; i < 5; i++) {
-    cleanInput(playerInput);
-    computerPlay(numOfChoices);
+    let playerInput = prompt(
+      'type your choice of rock, paper, or scissors. just like in real life, if your choice is not clear, you lose.'
+    );
+    let playerSelection = cleanInput(playerInput);
+    let computerSelection = computerPlay();
     console.log(playerSelection, computerSelection);
-    playRound(playerSelection, computerSelection);
+    playRound(playerSelection, computerSelection, i);
   }
   if (playerScore > comScore) {
     return `you win! ${playerScore} to ${comScore}`;
