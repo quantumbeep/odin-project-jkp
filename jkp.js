@@ -1,7 +1,26 @@
 let playerScore = 0;
 let comScore = 0;
 let round = 0;
+const buttons = document.querySelectorAll('button');
+buttons.forEach((button) => {
+  button.addEventListener('click', () => {
+    playRound(button.id);
+  });
+});
+const createScoreBanner = () => {
+  const top = document.querySelector('#top');
+  const content = document.createElement('div');
+  content.setAttribute('style', 'color:magenta; background:black;');
+  content.classList.add('content');
+  content.textContent = `${playerScore} to ${comScore}`;
+  top.appendChild(content);
+};
 
+const resetGame = () => {
+  playerScore = 0;
+  comScore = 0;
+  round = 0;
+};
 const computerPlay = () => {
   const num = Math.floor(Math.random() * 3);
   if (num === 0) {
@@ -13,16 +32,17 @@ const computerPlay = () => {
   }
 };
 
-const cleanInput = (playerInput) => {
-  let x = playerInput.toLowerCase();
-  if (x === 'rock' || x === 'paper' || x === 'scissors') {
-    return x;
-  } else {
-    return null;
-  }
-};
+// const cleanInput = (playerInput) => {
+//   let x = playerInput.toLowerCase();
+//   if (x === 'rock' || x === 'paper' || x === 'scissors') {
+//     return x;
+//   } else {
+//     return null;
+//   }
+// };
 
 const playRound = (playerSelection) => {
+  createScoreBanner();
   round++;
   let computerSelection = computerPlay();
 
@@ -48,9 +68,11 @@ const playRound = (playerSelection) => {
   }
 
   if (playerScore === 5) {
-    console.log(`you win! ${playerScore} to ${comScore}`);
+    createScoreBanner();
+    resetGame();
   } else if (comScore === 5) {
-    console.log(`you loser! ${playerScore} to ${comScore}`);
+    createScoreBanner();
+    resetGame();
   } else {
     return;
   }
